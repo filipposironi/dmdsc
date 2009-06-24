@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="MacRoman"?>
+<process version="4.4">
+
+  <operator name="DMProject" class="Process" expanded="yes">
+      <parameter key="logverbosity"	value="init"/>
+      <parameter key="random_seed"	value="2001"/>
+      <parameter key="encoding"	value="SYSTEM"/>
+      <operator name="Load Data" class="CSVExampleSource">
+          <parameter key="filename"	value="/Users/filipposironi/Projects/DMTM/Data/P100001M10.csv"/>
+          <parameter key="read_attribute_names"	value="true"/>
+          <parameter key="label_column"	value="0"/>
+          <parameter key="id_column"	value="0"/>
+          <parameter key="weight_column"	value="0"/>
+          <parameter key="sample_ratio"	value="1.0"/>
+          <parameter key="sample_size"	value="-1"/>
+          <parameter key="datamanagement"	value="double_array"/>
+          <parameter key="column_separators"	value=",\s*|;\s*"/>
+          <parameter key="use_comment_characters"	value="true"/>
+          <parameter key="comment_chars"	value="#"/>
+          <parameter key="use_quotes"	value="true"/>
+          <parameter key="trim_lines"	value="false"/>
+          <parameter key="decimal_point_character"	value="."/>
+      </operator>
+      <operator name="Preprocessing" class="OperatorChain" expanded="yes">
+          <operator name="Fill Missing Values" class="SeriesMissingValueReplenishment">
+              <parameter key="attribute_name"	value="Eng. Temp"/>
+              <parameter key="replacement"	value="previous value"/>
+          </operator>
+          <operator name="Remove Attributes" class="OperatorChain" expanded="yes">
+              <operator name="Empty" class="AttributeFilter">
+                  <parameter key="condition_class"	value="no_missing_values"/>
+                  <parameter key="invert_filter"	value="false"/>
+                  <parameter key="apply_on_special"	value="false"/>
+              </operator>
+          </operator>
+          <operator name="Rename Attributes" class="OperatorChain" expanded="yes">
+              <operator name="Date" class="ChangeAttributeName">
+                  <parameter key="old_name"	value="Probe Date/Time"/>
+                  <parameter key="new_name"	value="Date"/>
+              </operator>
+              <operator name="GPSDate" class="ChangeAttributeName">
+                  <parameter key="old_name"	value="GPS Date/Time"/>
+                  <parameter key="new_name"	value="GPSDate"/>
+              </operator>
+              <operator name="EngineSpeed" class="ChangeAttributeName">
+                  <parameter key="old_name"	value="Eng. Speed"/>
+                  <parameter key="new_name"	value="EngineSpeed"/>
+              </operator>
+              <operator name="ChangeAttributeName" class="ChangeAttributeName">
+                  <parameter key="old_name"	value="Fuel Rate"/>
+                  <parameter key="new_name"	value="FuelRate"/>
+              </operator>
+              <operator name="EngineTemperature" class="ChangeAttributeName" activated="no">
+                  <parameter key="old_name"	value="Eng. Temp"/>
+                  <parameter key="new_name"	value="EngineTemperature"/>
+              </operator>
+          </operator>
+          <operator name="Filter Attributes" class="FeatureNameFilter" activated="no">
+              <parameter key="filter_special_features"	value="false"/>
+              <parameter key="skip_features_with_name"	value="Transmission|RawData|GPSDate|Acceleration|GPS-0|GPS-1|GPS Speed|Altitude|Eng. Load|CO2 Rate|GPS Sat. Count"/>
+          </operator>
+          <operator name="Filter Attributes (2)" class="FeatureNameFilter">
+              <parameter key="filter_special_features"	value="false"/>
+              <parameter key="skip_features_with_name"	value="Transmission|RawData|GPSDate|Acceleration|GPS-0|GPS-1|GPS Speed|Altitude|Eng. Load|CO2 Rate|Eng. Temp|GPS Sat. Count"/>
+          </operator>
+          <operator name="Movind Average" class="OperatorChain" expanded="yes">
+              <operator name="Speed" class="MovingAverage">
+                  <parameter key="attribute_name"	value="Speed"/>
+                  <parameter key="window_width"	value="10"/>
+                  <parameter key="aggregation_function"	value="average"/>
+                  <parameter key="ignore_missings"	value="true"/>
+                  <parameter key="result_position"	value="end"/>
+                  <parameter key="window_weighting"	value="Rectangular"/>
+                  <parameter key="keep_original_attribute"	value="false"/>
+              </operator>
+              <operator name="EngineSpeed (2)" class="MovingAverage">
+                  <parameter key="attribute_name"	value="EngineSpeed"/>
+                  <parameter key="window_width"	value="10"/>
+                  <parameter key="aggregation_function"	value="average"/>
+                  <parameter key="ignore_missings"	value="true"/>
+                  <parameter key="result_position"	value="end"/>
+                  <parameter key="window_weighting"	value="Rectangular"/>
+                  <parameter key="keep_original_attribute"	value="false"/>
+              </operator>
+              <operator name="Torque" class="MovingAverage">
+                  <parameter key="attribute_name"	value="Torque"/>
+                  <parameter key="window_width"	value="10"/>
+                  <parameter key="aggregation_function"	value="average"/>
+                  <parameter key="ignore_missings"	value="true"/>
+                  <parameter key="result_position"	value="end"/>
+                  <parameter key="window_weighting"	value="Rectangular"/>
+                  <parameter key="keep_original_attribute"	value="false"/>
+              </operator>
+              <operator name="FuelRate" class="MovingAverage">
+                  <parameter key="attribute_name"	value="FuelRate"/>
+                  <parameter key="window_width"	value="10"/>
+                  <parameter key="aggregation_function"	value="average"/>
+                  <parameter key="ignore_missings"	value="true"/>
+                  <parameter key="result_position"	value="end"/>
+                  <parameter key="window_weighting"	value="Rectangular"/>
+                  <parameter key="keep_original_attribute"	value="false"/>
+              </operator>
+              <operator name="EngineTemperature (2)" class="MovingAverage" activated="no">
+                  <parameter key="attribute_name"	value="EngineTemperature"/>
+                  <parameter key="window_width"	value="10"/>
+                  <parameter key="aggregation_function"	value="average"/>
+                  <parameter key="ignore_missings"	value="true"/>
+                  <parameter key="result_position"	value="end"/>
+                  <parameter key="window_weighting"	value="Rectangular"/>
+                  <parameter key="keep_original_attribute"	value="false"/>
+              </operator>
+          </operator>
+          <operator name="Remove Missing Values" class="ExampleFilter">
+              <parameter key="condition_class"	value="no_missing_attributes"/>
+              <parameter key="invert_filter"	value="false"/>
+          </operator>
+      </operator>
+  </operator>
+
+</process>

@@ -23,8 +23,8 @@
           <parameter key="trim_lines"	value="false"/>
           <parameter key="decimal_point_character"	value="."/>
       </operator>
-      <operator name="Preprocessing" class="OperatorChain" expanded="no">
-          <operator name="Rename Attributes" class="OperatorChain" expanded="yes">
+      <operator name="Preprocessing" class="OperatorChain" expanded="yes">
+          <operator name="Rename Attributes" class="OperatorChain" expanded="no">
               <operator name="Date" class="ChangeAttributeName">
                   <parameter key="old_name"	value="Probe Date/Time"/>
                   <parameter key="new_name"	value="Date"/>

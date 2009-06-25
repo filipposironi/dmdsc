@@ -1,0 +1,47 @@
+\section{Data Exploration and Preprocessing}
+\label{section:expandpre}
+The first step of this project consisted in a preliminary exploration of the dataset to better understand its characteristics.
+
+The idea at the very base of this process is to take advantage of human abilities for selecting an appropriate preprocessing chain and looking for dirty data that should be cleaned or discorded. Moreover, we tried to take in consideration only useful attributes that best suit the assigned task.
+
+The initial dataset contains:
+\begin{itemize}
+\item \texttt{Probe}, which is the vehicle identifier;
+\item \texttt{Cycle}, which identifies a period in which the engine vehicle is on;
+\item \texttt{Transmission} and \texttt{RawData}, which are identifiers for the GSM connection and packets;
+\item \texttt{Probe Date/Time}, which is the server time;
+\item \texttt{GPS Date/Time}, which is the car time;
+\item \texttt{Speed} and \texttt{Acceleration};
+\item \texttt{GPS Sat. Count}, which representes the number of satellites visibile to the GPS;
+\item \texttt{GPS-0}, \texttt{GPS-1}, and \texttt{Altitude}, which are respectively Longitude, Latitude, and Altitude measured by the GPS system;
+\item \texttt{GPS Speed}, which is the speed at which the vehicle is running according to the GPS;
+\item \texttt{Eng. Speed}, \texttt{Eng. Load}, \texttt{Torque}, \texttt{Fuel Rate}, \texttt{CO2 Rate}, \texttt{Eng. Temp}, which are engine parameters.
+\end{itemize}
+We decided to take in consideration a subset of these attributes:
+\begin{itemize}
+\item \texttt{GPS Date/Time}, renamed to \texttt{GPSDate}, is used to simplify the time series;
+\item \texttt{Speed}, which is smoothed with a simple moving average, normalized, and then averaged with respect to the window applied to the time series;
+\item \texttt{Eng. Speed}, renamed in \texttt{EngineSpeed}, endures the same procedure described for the Speed attributes.
+\end{itemize}
+We decided not to take into account attributes like Acceleration, Torque, and Fuel Rate since they are - for real - strictly correlated to Speed and EngineSpeed and thanks to some mining test we notice that they don't have that much weight in the clustering operation.
+
+Going deeper with the preprocessing phase we needed a preprocessing chain that is able to eliminate the noise due to the sampling of real data and all the attributes we didn't care about. In Figure~\ref{figure:clean} is shown the very first tool-chain used to in the preprocessing phase.
+
+\begin{figure}[h!]
+\centerline{\includegraphics[scale=0.8]{images/clean.png}}
+\caption{Clean Process}
+\label{figure:clean}
+\end{figure}
+
+First of all, we loaded the dataset thanks to an ad-hoc CSV~\footnote{Comma Separated Values} component, then we renamed date attributes and converted them in suitable format thanks to appropriate components. After these operations we removed duplicates based on the GPSDate attribute. The tool-chain ends with the component which is in charge to write the CSV dataset. These steps were necessary and repeated for every input dataset.
+
+After this cleaning process we needed to work on attributes in order to select only the meaningful ones and to elaborate some of them to have suitable values for clustering. This second tool-chain is represented in Figure~\ref{figure:preprocess}.
+
+%\begin{figure}[h!]
+%\centerline{\includegraphics[scale=0.8]{images/preprocess.png}}
+%\caption{Preprocess}
+%\label{figure:preprocess}
+%\end{figure}
+
+% NOT COMPLETED YET
+With this tool-chain we loaded a cleaned dataset on which we applied some renaming and filter operators before starting the real preprocessing. The preprocessing consisted in applying the moving average on the Speed and EngineSpeed attributes in order to smooth their values. Since the moving average works on a sliding set of values some of computed values are missing so we needed to prune them from the dataset. Finally, our preprocessing contained also a normalization operator to make every value weight the same during the clustering process.

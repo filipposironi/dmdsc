@@ -1,0 +1,12 @@
+\section{Preprocessing}
+
+Before proceeding with the mining phase, we perform a preliminar preprocess step on the data. 
+With the first operation, the nominal attributes representing date and time are converted so the tool can correctly deal with them; then duplicate instances are deleted from the ExampleSet. With the \textit{AttributeFilter} operator we can reduce the dimensionality of the data, dropping those attributes that are not useful for the following activities.
+
+After these first steps the data continue to show missing or inconsistent values; we can easily deal with those situations thanks to the \textit{ExampleFilter} operator, that deletes all the instances whose attributes don't satisfy certain conditions.     
+
+Next we apply a \textit{MovingAverage} in order to smooth the values of the timed .
+
+- moving average (MovingAverage)
+- normalization of numerical attributes (Normalization)
+- aggregation of multiple instances  (MultivariateSeries2WindowExample + AttributeAggregation)

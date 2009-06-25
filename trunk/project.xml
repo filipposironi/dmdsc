@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="MacRoman"?>
+<?xml version="1.0" encoding="windows-1252"?>
 <process version="4.4">
 
   <operator name="DMProject" class="Process" expanded="yes">
@@ -56,6 +56,11 @@
           <operator name="Filter Attributes" class="FeatureNameFilter">
               <parameter key="filter_special_features"	value="false"/>
               <parameter key="skip_features_with_name"	value="Transmission|RawData|Date|Acceleration|GPS-0|GPS-1|GPS Speed|Altitude|Eng. Load|CO2 Rate|Eng. Temp|GPS Sat. Count"/>
+          </operator>
+          <operator name="Filter EngineSpeed" class="ExampleFilter">
+              <parameter key="condition_class"	value="attribute_value_filter"/>
+              <parameter key="parameter_string"	value="EngineSpeed&gt;0"/>
+              <parameter key="invert_filter"	value="false"/>
           </operator>
           <operator name="Transform Date" class="Nominal2Date">
               <parameter key="attribute_name"	value="GPSDate"/>

@@ -8,7 +8,7 @@
       <parameter key="random_seed"	value="2001"/>
       <parameter key="encoding"	value="SYSTEM"/>
       <operator name="Load Data" class="CSVExampleSource">
-          <parameter key="filename"	value="./data/1.csv"/>
+          <parameter key="filename"	value="./data/2.csv"/>
           <parameter key="read_attribute_names"	value="true"/>
           <parameter key="label_column"	value="0"/>
           <parameter key="id_column"	value="0"/>
@@ -287,12 +287,12 @@
           </operator>
       </operator>
       <operator name="Store Data" class="CSVExampleSetWriter">
-          <parameter key="csv_file"	value="./processed_data/1.csv"/>
+          <parameter key="csv_file"	value="./processed_data/2.csv"/>
           <parameter key="column_separator"	value=";"/>
           <parameter key="write_attribute_names"	value="true"/>
           <parameter key="quote_nominal_values"	value="false"/>
       </operator>
-      <operator name="W-XMeans" class="W-XMeans">
+      <operator name="W-XMeans" class="W-XMeans" breakpoints="after" activated="no">
           <parameter key="keep_example_set"	value="true"/>
           <parameter key="I"	value="10.0"/>
           <parameter key="M"	value="1000.0"/>

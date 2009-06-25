@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="MacRoman"?>
+<process version="4.4">
+
+  <operator name="Clean" class="Process" expanded="yes">
+      <parameter key="logverbosity"	value="init"/>
+      <parameter key="logfile"	value="./project.log"/>
+      <parameter key="resultfile"	value="./project.res"/>
+      <parameter key="random_seed"	value="2001"/>
+      <parameter key="encoding"	value="SYSTEM"/>
+      <operator name="Load Data" class="CSVExampleSource">
+          <parameter key="filename"	value="./data/1.csv"/>
+          <parameter key="read_attribute_names"	value="true"/>
+          <parameter key="label_column"	value="0"/>
+          <parameter key="id_column"	value="0"/>
+          <parameter key="weight_column"	value="0"/>
+          <parameter key="sample_ratio"	value="1.0"/>
+          <parameter key="sample_size"	value="-1"/>
+          <parameter key="datamanagement"	value="double_array"/>
+          <parameter key="column_separators"	value=",\s*|;\s*"/>
+          <parameter key="use_comment_characters"	value="true"/>
+          <parameter key="comment_chars"	value="#"/>
+          <parameter key="use_quotes"	value="true"/>
+          <parameter key="trim_lines"	value="false"/>
+          <parameter key="decimal_point_character"	value="."/>
+      </operator>
+      <operator name="Preprocessing" class="OperatorChain" expanded="no">
+          <operator name="Rename Attributes" class="OperatorChain" expanded="yes">
+              <operator name="Date" class="ChangeAttributeName">
+                  <parameter key="old_name"	value="Probe Date/Time"/>
+                  <parameter key="new_name"	value="Date"/>
+              </operator>
+              <operator name="GPSDate" class="ChangeAttributeName">
+                  <parameter key="old_name"	value="GPS Date/Time"/>
+                  <parameter key="new_name"	value="GPSDate"/>
+              </operator>
+          </operator>
+          <operator name="Transform Date" class="Nominal2Date">
+              <parameter key="attribute_name"	value="Date"/>
+              <parameter key="date_type"	value="date_time"/>
+              <parameter key="date_format"	value="yyyy/MM/dd HH:mm:ss"/>
+              <parameter key="time_zone"	value="SYSTEM"/>
+              <parameter key="locale"	value="English (United States)"/>
+              <parameter key="keep_old_attribute"	value="false"/>
+          </operator>
+          <operator name="Transform GPSDate" class="Nominal2Date">
+              <parameter key="attribute_name"	value="GPSDate"/>
+              <parameter key="date_type"	value="date_time"/>
+              <parameter key="date_format"	value="yyyy/MM/dd HH:mm:ss"/>
+              <parameter key="time_zone"	value="SYSTEM"/>
+              <parameter key="locale"	value="English (United States)"/>
+              <parameter key="keep_old_attribute"	value="false"/>
+          </operator>
+          <operator name="RemoveDuplicates" class="RemoveDuplicates">
+              <parameter key="attributes"	value="GPSDate"/>
+          </operator>
+      </operator>
+      <operator name="Store Data" class="CSVExampleSetWriter">
+          <parameter key="csv_file"	value="./processed_data/1.csv"/>
+          <parameter key="column_separator"	value=";"/>
+          <parameter key="write_attribute_names"	value="true"/>
+          <parameter key="quote_nominal_values"	value="true"/>
+      </operator>
+  </operator>
+
+</process>

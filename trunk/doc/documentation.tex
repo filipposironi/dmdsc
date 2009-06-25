@@ -1,0 +1,73 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[english]{babel}
+\selectlanguage{english}
+\usepackage[applemac]{inputenc}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{cite}
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage[pdftex]{hyperref}
+\hypersetup{
+pdfauthor={Filippo Sironi, Matteo Villa},
+pdfsubject={Data Mining and Text Mining},
+pdftitle={Driving Style Clustering},
+pdfborder={0 0 0},
+colorlinks,
+citecolor=black,
+filecolor=black,
+linkcolor=black,
+urlcolor=black
+}
+\usepackage{sans}
+\usepackage{indentﬁrst}
+
+\begin{document}
+
+\thispagestyle{empty}
+\begin{center}
+{\huge Politecnico di Milano}
+\end{center}
+\begin{center}
+{\huge Data Mining and Text Mining}
+\end{center}
+\vskip 8cm
+\begin{center}
+{\huge Driving Style Clustering}\\
+\url{http://code.google.com/p/dmdsc/}
+\end{center}
+\vskip 2cm
+\begin{table}[h!]
+\centering\large
+\begin{tabular}{lr}
+Filippo Sironi & 734456\\
+Matteo Villa & 735064\\
+\end{tabular}
+\end{table}
+\vskip 2cm
+\begin{center}
+{\large 2009}
+\end{center}
+
+\newpage
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\bfseries\thepage}
+\fancyhead[L]{\bfseries\rightmark}
+\fancyhead[L]{\bfseries\leftmark}
+
+\newpage
+\tableofcontents
+
+\newpage
+\listoffigures
+
+\newpage\input{sections/introduction.tex}
+
+\end{document}

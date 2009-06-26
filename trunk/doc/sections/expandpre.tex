@@ -34,7 +34,7 @@ In Figure~\ref{figure:clean} is shown the very first tool-chain used to in the p
 
 \begin{wrapfigure}{r}{0.4\textwidth}
   \begin{center}
-    \includegraphics[scale=0.6]{images/clean.png}
+    \includegraphics[scale=0.55]{images/clean.png}
   \end{center}
   \caption{Clean Process}
   \label{figure:clean}
@@ -53,16 +53,12 @@ First of all, we loaded the dataset thanks to an ad-hoc CSV\footnote{Comma Separ
 
 After this cleaning process we needed to work on attributes in order to select only the meaningful ones and to elaborate some of them to have suitable values for clustering. This second tool-chain is represented in Figure~\ref{figure:preprocess}.
 
-
-% NOT COMPLETED YET
-
-With this second work-flow we loaded a cleaned dataset on which we applied some attributes renaming and filter operators to select only a subset of attributes.
-The real preprocessing step consisted in applying the moving average on the Speed and EngineSpeed attributes in order to smooth their values. Since the moving average works on a sliding set of values and some of these are missing, we needed to prune the corresponding instances from the dataset before proceeding with the operations. Finally, the preprocessing flow applied a normalization operator to make every value weight the same during the clustering process.
-
-
-
-\begin{figure}[h!]
+\begin{figure}[!]
 \centerline{\includegraphics[scale=0.7]{images/preprocess.png}}
 \caption{Preprocess}
 \label{figure:preprocess}
 \end{figure}
+
+With this second work-flow we loaded a cleaned dataset on which we applied some attributes renaming and filter operators to select only a subset of attributes.
+The real preprocessing step consisted in applying the moving average on the Speed and EngineSpeed attributes in order to smooth their values. Since the moving average works on a sliding set of values and some of these are missing, we needed to prune the corresponding instances from the dataset before proceeding with the operations.
+

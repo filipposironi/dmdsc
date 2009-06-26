@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="MacRoman"?>
 <process version="4.4">
 
-  <operator name="DMProject" class="Process" expanded="yes">
+  <operator name="Preprocess" class="Process" expanded="yes">
       <parameter key="logverbosity"	value="init"/>
-      <parameter key="logfile"	value="./project.log"/>
-      <parameter key="resultfile"	value="./project.res"/>
+      <parameter key="logfile"	value="./preprocess.log"/>
+      <parameter key="resultfile"	value="./preprocess.res"/>
       <parameter key="random_seed"	value="2001"/>
       <parameter key="encoding"	value="SYSTEM"/>
       <operator name="Load Data" class="CSVExampleSource">
-          <parameter key="filename"	value="./processed_data/1.csv"/>
+          <parameter key="filename"	value="../preprocessed_data/1.csv"/>
           <parameter key="read_attribute_names"	value="true"/>
           <parameter key="label_column"	value="0"/>
           <parameter key="id_column"	value="0"/>
@@ -23,16 +23,24 @@
           <parameter key="trim_lines"	value="false"/>
           <parameter key="decimal_point_character"	value="."/>
       </operator>
-      <operator name="Preprocessing" class="OperatorChain" expanded="yes">
-          <operator name="Rename Attributes" class="OperatorChain" expanded="no">
+      <operator name="Preprocessing" class="OperatorChain" expanded="no">
+          <operator name="Rename" class="OperatorChain" expanded="no">
+              <operator name="Latitude" class="ChangeAttributeName">
+                  <parameter key="old_name"	value="GPS-0"/>
+                  <parameter key="new_name"	value="Latitude"/>
+              </operator>
+              <operator name="Longitude" class="ChangeAttributeName">
+                  <parameter key="old_name"	value="GPS-1"/>
+                  <parameter key="new_name"	value="Longitude"/>
+              </operator>
               <operator name="EngineSpeed" class="ChangeAttributeName">
                   <parameter key="old_name"	value="Eng. Speed"/>
                   <parameter key="new_name"	value="EngineSpeed"/>
               </operator>
           </operator>
-          <operator name="AttributeFilter" class="AttributeFilter">
+          <operator name="Filter Attributes" class="AttributeFilter">
               <parameter key="condition_class"	value="attribute_name_filter"/>
-              <parameter key="parameter_string"	value="Fuel Rate|Torque|Cycle|Transmission|RawData|Date|Acceleration|GPS-0|GPS-1|GPS Speed|Altitude|Eng. Load|CO2 Rate|Eng. Temp|GPS Sat. Count|"/>
+              <parameter key="parameter_string"	value="GPS Sat. Count|Acceleration|Fuel Rate|Torque|Cycle|Transmission|RawData|Date|GPS Speed|Altitude|Eng. Load|CO2 Rate|Eng. Temp|GPS Sat. Count|"/>
               <parameter key="invert_filter"	value="true"/>
               <parameter key="apply_on_special"	value="false"/>
           </operator>
@@ -41,10 +49,15 @@
               <parameter key="parameter_string"	value="EngineSpeed&gt;0"/>
               <parameter key="invert_filter"	value="false"/>
           </operator>
+          <operator name="Filter GPS" class="ExampleFilter">
+              <parameter key="condition_class"	value="attribute_value_filter"/>
+              <parameter key="parameter_string"	value="Longitude&gt;9 &amp;&amp; Longitude&lt;10"/>
+              <parameter key="invert_filter"	value="false"/>
+          </operator>
           <operator name="Moving Average" class="OperatorChain" expanded="no">
               <operator name="Speed" class="MovingAverage">
                   <parameter key="attribute_name"	value="Speed"/>
-                  <parameter key="window_width"	value="10"/>
+                  <parameter key="window_width"	value="5"/>
                   <parameter key="aggregation_function"	value="average"/>
                   <parameter key="ignore_missings"	value="true"/>
                   <parameter key="result_position"	value="end"/>
@@ -57,7 +70,7 @@
               </operator>
               <operator name="EngineSpeed (2)" class="MovingAverage">
                   <parameter key="attribute_name"	value="EngineSpeed"/>
-                  <parameter key="window_width"	value="10"/>
+                  <parameter key="window_width"	value="5"/>
                   <parameter key="aggregation_function"	value="average"/>
                   <parameter key="ignore_missings"	value="true"/>
                   <parameter key="result_position"	value="end"/>
@@ -73,53 +86,14 @@
               <parameter key="condition_class"	value="no_missing_attributes"/>
               <parameter key="invert_filter"	value="false"/>
           </operator>
-          <operator name="Normalize" class="OperatorChain" expanded="yes">
-              <operator name="Speed (2)" class="AttributeSubsetPreprocessing" expanded="no">
-                  <parameter key="condition_class"	value="attribute_name_filter"/>
-                  <parameter key="attribute_name_regex"	value="Speed"/>
-                  <parameter key="invert_selection"	value="false"/>
-                  <parameter key="process_special_attributes"	value="false"/>
-                  <parameter key="keep_subset_only"	value="false"/>
-                  <parameter key="deliver_inner_results"	value="false"/>
-                  <operator name="Speed (3)" class="Normalization">
-                      <parameter key="return_preprocessing_model"	value="false"/>
-                      <parameter key="create_view"	value="false"/>
-                      <parameter key="method"	value="Range-Transformation"/>
-                      <parameter key="min"	value="0.0"/>
-                      <parameter key="max"	value="107.1"/>
-                  </operator>
-              </operator>
-              <operator name="EngineSpeed (3)" class="AttributeSubsetPreprocessing" expanded="no">
-                  <parameter key="condition_class"	value="attribute_name_filter"/>
-                  <parameter key="attribute_name_regex"	value="EngineSpeed"/>
-                  <parameter key="invert_selection"	value="false"/>
-                  <parameter key="process_special_attributes"	value="false"/>
-                  <parameter key="keep_subset_only"	value="false"/>
-                  <parameter key="deliver_inner_results"	value="false"/>
-                  <operator name="EngineSpeed (4)" class="Normalization">
-                      <parameter key="return_preprocessing_model"	value="false"/>
-                      <parameter key="create_view"	value="false"/>
-                      <parameter key="method"	value="Range-Transformation"/>
-                      <parameter key="min"	value="656.0"/>
-                      <parameter key="max"	value="3017.6"/>
-                  </operator>
-              </operator>
-          </operator>
           <operator name="Windows" class="MultivariateSeries2WindowExamples">
               <parameter key="series_representation"	value="encode_series_by_examples"/>
               <parameter key="horizon"	value="0"/>
-              <parameter key="window_size"	value="60"/>
-              <parameter key="step_size"	value="60"/>
+              <parameter key="window_size"	value="10"/>
+              <parameter key="step_size"	value="10"/>
               <parameter key="create_single_attributes"	value="false"/>
               <parameter key="label_attribute"	value="GPSDate"/>
               <parameter key="add_incomplete_windows"	value="true"/>
-          </operator>
-          <operator name="Aggregate Probe" class="AttributeAggregation">
-              <parameter key="attribute_name"	value="Probe"/>
-              <parameter key="aggregation_attributes"	value="Probe-.*"/>
-              <parameter key="aggregation_function"	value="mode"/>
-              <parameter key="ignore_missings"	value="true"/>
-              <parameter key="keep_all"	value="false"/>
           </operator>
           <operator name="Remove GPSDates" class="AttributeFilter">
               <parameter key="condition_class"	value="attribute_name_filter"/>
@@ -127,20 +101,39 @@
               <parameter key="invert_filter"	value="true"/>
               <parameter key="apply_on_special"	value="true"/>
           </operator>
-          <operator name="Aggregate Speed" class="OperatorChain" expanded="no">
-              <operator name="SpeedMean" class="AttributeAggregation">
-                  <parameter key="attribute_name"	value="SpeedMean"/>
+          <operator name="Aggregate" class="OperatorChain" expanded="no">
+              <operator name="Probe" class="AttributeAggregation">
+                  <parameter key="attribute_name"	value="Probe"/>
+                  <parameter key="aggregation_attributes"	value="Probe-.*"/>
+                  <parameter key="aggregation_function"	value="mode"/>
+                  <parameter key="ignore_missings"	value="true"/>
+                  <parameter key="keep_all"	value="false"/>
+              </operator>
+              <operator name="Speed (2)" class="AttributeAggregation">
+                  <parameter key="attribute_name"	value="Speed"/>
                   <parameter key="aggregation_attributes"	value="Speed-.*"/>
                   <parameter key="aggregation_function"	value="average"/>
                   <parameter key="ignore_missings"	value="true"/>
                   <parameter key="keep_all"	value="false"/>
               </operator>
-          </operator>
-          <operator name="Aggregate EngineSpeed" class="OperatorChain" expanded="no">
-              <operator name="EngineSpeedMean" class="AttributeAggregation">
-                  <parameter key="attribute_name"	value="EngineSpeedMean"/>
+              <operator name="EngineSpeed (3)" class="AttributeAggregation">
+                  <parameter key="attribute_name"	value="EngineSpeed"/>
                   <parameter key="aggregation_attributes"	value="EngineSpeed-.*"/>
                   <parameter key="aggregation_function"	value="average"/>
+                  <parameter key="ignore_missings"	value="true"/>
+                  <parameter key="keep_all"	value="false"/>
+              </operator>
+              <operator name="Longitude (2)" class="AttributeAggregation">
+                  <parameter key="attribute_name"	value="Longitude"/>
+                  <parameter key="aggregation_attributes"	value="Longitude-.*"/>
+                  <parameter key="aggregation_function"	value="mode"/>
+                  <parameter key="ignore_missings"	value="true"/>
+                  <parameter key="keep_all"	value="false"/>
+              </operator>
+              <operator name="Latitude (2)" class="AttributeAggregation">
+                  <parameter key="attribute_name"	value="Latitude"/>
+                  <parameter key="aggregation_attributes"	value="Latitude-.*"/>
+                  <parameter key="aggregation_function"	value="mode"/>
                   <parameter key="ignore_missings"	value="true"/>
                   <parameter key="keep_all"	value="false"/>
               </operator>
@@ -150,18 +143,11 @@
               <parameter key="invert_filter"	value="false"/>
           </operator>
       </operator>
-      <operator name="W-XMeans" class="W-XMeans">
-          <parameter key="keep_example_set"	value="true"/>
-          <parameter key="I"	value="5.0"/>
-          <parameter key="M"	value="1000.0"/>
-          <parameter key="J"	value="1000.0"/>
-          <parameter key="L"	value="2.0"/>
-          <parameter key="H"	value="10.0"/>
-          <parameter key="B"	value="1.0"/>
-          <parameter key="use-kdtree"	value="false"/>
-          <parameter key="C"	value="0.0"/>
-          <parameter key="D"	value="weka.core.EuclideanDistance -R first-last"/>
-          <parameter key="S"	value="10.0"/>
+      <operator name="Store Data" class="CSVExampleSetWriter">
+          <parameter key="csv_file"	value="../preprocessed_data/1PP.csv"/>
+          <parameter key="column_separator"	value=";"/>
+          <parameter key="write_attribute_names"	value="true"/>
+          <parameter key="quote_nominal_values"	value="false"/>
       </operator>
   </operator>
 

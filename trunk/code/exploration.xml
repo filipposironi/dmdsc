@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="MacRoman"?>
+<process version="4.4">
+
+  <operator name="Exploration" class="Process" expanded="yes">
+      <parameter key="logverbosity"	value="init"/>
+      <parameter key="logfile"	value="./mine.log"/>
+      <parameter key="resultfile"	value="./mine.res"/>
+      <parameter key="random_seed"	value="2001"/>
+      <parameter key="encoding"	value="SYSTEM"/>
+      <operator name="Load 1" class="CSVExampleSource">
+          <parameter key="filename"	value="../preprocessed_data/1PP.csv"/>
+          <parameter key="read_attribute_names"	value="true"/>
+          <parameter key="label_column"	value="0"/>
+          <parameter key="id_column"	value="0"/>
+          <parameter key="weight_column"	value="0"/>
+          <parameter key="sample_ratio"	value="1.0"/>
+          <parameter key="sample_size"	value="-1"/>
+          <parameter key="datamanagement"	value="double_array"/>
+          <parameter key="column_separators"	value=",\s*|;\s*"/>
+          <parameter key="use_comment_characters"	value="true"/>
+          <parameter key="comment_chars"	value="#"/>
+          <parameter key="use_quotes"	value="true"/>
+          <parameter key="trim_lines"	value="false"/>
+          <parameter key="decimal_point_character"	value="."/>
+      </operator>
+      <operator name="Normalize Attributes" class="AttributeSubsetPreprocessing" expanded="no">
+          <parameter key="condition_class"	value="attribute_name_filter"/>
+          <parameter key="attribute_name_regex"	value="Speed|EngineSpeed"/>
+          <parameter key="invert_selection"	value="false"/>
+          <parameter key="process_special_attributes"	value="false"/>
+          <parameter key="keep_subset_only"	value="false"/>
+          <parameter key="deliver_inner_results"	value="false"/>
+          <operator name="Normalization" class="Normalization">
+              <parameter key="return_preprocessing_model"	value="false"/>
+              <parameter key="create_view"	value="false"/>
+              <parameter key="method"	value="Range-Transformation"/>
+              <parameter key="min"	value="0.0"/>
+              <parameter key="max"	value="1.0"/>
+          </operator>
+      </operator>
+      <operator name="Load 3" class="CSVExampleSource">
+          <parameter key="filename"	value="../preprocessed_data/3PP.csv"/>
+          <parameter key="read_attribute_names"	value="true"/>
+          <parameter key="label_column"	value="0"/>
+          <parameter key="id_column"	value="0"/>
+          <parameter key="weight_column"	value="0"/>
+          <parameter key="sample_ratio"	value="1.0"/>
+          <parameter key="sample_size"	value="-1"/>
+          <parameter key="datamanagement"	value="double_array"/>
+          <parameter key="column_separators"	value=",\s*|;\s*"/>
+          <parameter key="use_comment_characters"	value="true"/>
+          <parameter key="comment_chars"	value="#"/>
+          <parameter key="use_quotes"	value="true"/>
+          <parameter key="trim_lines"	value="false"/>
+          <parameter key="decimal_point_character"	value="."/>
+      </operator>
+      <operator name="Normalize Attributes (2)" class="AttributeSubsetPreprocessing" expanded="yes">
+          <parameter key="condition_class"	value="attribute_name_filter"/>
+          <parameter key="attribute_name_regex"	value="Speed|EngineSpeed"/>
+          <parameter key="invert_selection"	value="false"/>
+          <parameter key="process_special_attributes"	value="false"/>
+          <parameter key="keep_subset_only"	value="false"/>
+          <parameter key="deliver_inner_results"	value="false"/>
+          <operator name="Normalization (2)" class="Normalization">
+              <parameter key="return_preprocessing_model"	value="false"/>
+              <parameter key="create_view"	value="false"/>
+              <parameter key="method"	value="Range-Transformation"/>
+              <parameter key="min"	value="0.0"/>
+              <parameter key="max"	value="1.0"/>
+          </operator>
+      </operator>
+      <operator name="Load 5" class="CSVExampleSource">
+          <parameter key="filename"	value="../preprocessed_data/5PP.csv"/>
+          <parameter key="read_attribute_names"	value="true"/>
+          <parameter key="label_column"	value="0"/>
+          <parameter key="id_column"	value="0"/>
+          <parameter key="weight_column"	value="0"/>
+          <parameter key="sample_ratio"	value="1.0"/>
+          <parameter key="sample_size"	value="-1"/>
+          <parameter key="datamanagement"	value="double_array"/>
+          <parameter key="column_separators"	value=",\s*|;\s*"/>
+          <parameter key="use_comment_characters"	value="true"/>
+          <parameter key="comment_chars"	value="#"/>
+          <parameter key="use_quotes"	value="true"/>
+          <parameter key="trim_lines"	value="false"/>
+          <parameter key="decimal_point_character"	value="."/>
+      </operator>
+      <operator name="Normalize Attributes (3)" class="AttributeSubsetPreprocessing" expanded="yes">
+          <parameter key="condition_class"	value="attribute_name_filter"/>
+          <parameter key="attribute_name_regex"	value="Speed|EngineSpeed"/>
+          <parameter key="invert_selection"	value="false"/>
+          <parameter key="process_special_attributes"	value="false"/>
+          <parameter key="keep_subset_only"	value="false"/>
+          <parameter key="deliver_inner_results"	value="false"/>
+          <operator name="Normalization (3)" class="Normalization">
+              <parameter key="return_preprocessing_model"	value="false"/>
+              <parameter key="create_view"	value="false"/>
+              <parameter key="method"	value="Range-Transformation"/>
+              <parameter key="min"	value="0.0"/>
+              <parameter key="max"	value="1.0"/>
+          </operator>
+      </operator>
+  </operator>
+
+</process>

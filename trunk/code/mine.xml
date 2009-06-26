@@ -7,7 +7,7 @@
       <parameter key="resultfile"	value="./mine.res"/>
       <parameter key="random_seed"	value="2001"/>
       <parameter key="encoding"	value="SYSTEM"/>
-      <operator name="Load and Merge" class="OperatorChain" expanded="no">
+      <operator name="Load and Merge" class="OperatorChain" expanded="yes">
           <operator name="Load 5" class="CSVExampleSource">
               <parameter key="filename"	value="../preprocessed_data/5PP.csv"/>
               <parameter key="read_attribute_names"	value="true"/>
@@ -61,7 +61,7 @@
               <parameter key="datamanagement"	value="double_array"/>
           </operator>
       </operator>
-      <operator name="Normalize Attributes" class="AttributeSubsetPreprocessing" expanded="no">
+      <operator name="Normalize Attributes" class="AttributeSubsetPreprocessing" expanded="yes">
           <parameter key="condition_class"	value="attribute_name_filter"/>
           <parameter key="attribute_name_regex"	value="Speed|EngineSpeed"/>
           <parameter key="invert_selection"	value="false"/>

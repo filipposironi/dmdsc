@@ -8,7 +8,11 @@
       <parameter key="random_seed"	value="2001"/>
       <parameter key="encoding"	value="SYSTEM"/>
       <operator name="Load Data" class="CSVExampleSource">
+<<<<<<< .mine
+          <parameter key="filename"	value="./data/5.csv"/>
+=======
           <parameter key="filename"	value="./data/3.csv"/>
+>>>>>>> .r17
           <parameter key="read_attribute_names"	value="true"/>
           <parameter key="label_column"	value="0"/>
           <parameter key="id_column"	value="0"/>
@@ -21,10 +25,15 @@
           <parameter key="comment_chars"	value="#"/>
           <parameter key="use_quotes"	value="true"/>
           <parameter key="trim_lines"	value="false"/>
-          <parameter key="decimal_point_character"	value="."/>
+          <parameter key="decimal_point_character"	value=""/>
       </operator>
+<<<<<<< .mine
+      <operator name="Preprocessing" class="OperatorChain" expanded="yes">
+          <operator name="Rename Attributes" class="OperatorChain" expanded="yes">
+=======
       <operator name="Preprocessing" class="OperatorChain" expanded="yes">
           <operator name="Rename Attributes" class="OperatorChain" expanded="no">
+>>>>>>> .r17
               <operator name="Date" class="ChangeAttributeName">
                   <parameter key="old_name"	value="Probe Date/Time"/>
                   <parameter key="new_name"	value="Date"/>
@@ -50,12 +59,16 @@
               <parameter key="locale"	value="English (United States)"/>
               <parameter key="keep_old_attribute"	value="false"/>
           </operator>
-          <operator name="RemoveDuplicates" class="RemoveDuplicates">
+          <operator name="Remove Duplicates" class="RemoveDuplicates">
               <parameter key="attributes"	value="GPSDate"/>
           </operator>
       </operator>
       <operator name="Store Data" class="CSVExampleSetWriter">
+<<<<<<< .mine
+          <parameter key="csv_file"	value="./processed_data/5.csv"/>
+=======
           <parameter key="csv_file"	value="./processed_data/3.csv"/>
+>>>>>>> .r17
           <parameter key="column_separator"	value=";"/>
           <parameter key="write_attribute_names"	value="true"/>
           <parameter key="quote_nominal_values"	value="false"/>

@@ -9,7 +9,7 @@
       <parameter key="encoding"	value="SYSTEM"/>
       <operator name="Load and Merge" class="OperatorChain" expanded="yes">
           <operator name="Load 5" class="CSVExampleSource">
-              <parameter key="filename"	value="../preprocessed_data/5PP.csv"/>
+              <parameter key="filename"	value="../preprocessed_data/TESTDM_PP.csv"/>
               <parameter key="read_attribute_names"	value="true"/>
               <parameter key="label_column"	value="0"/>
               <parameter key="id_column"	value="0"/>
@@ -24,7 +24,7 @@
               <parameter key="trim_lines"	value="false"/>
               <parameter key="decimal_point_character"	value="."/>
           </operator>
-          <operator name="Load 3" class="CSVExampleSource">
+          <operator name="Load 3" class="CSVExampleSource" activated="no">
               <parameter key="filename"	value="../preprocessed_data/3PP.csv"/>
               <parameter key="read_attribute_names"	value="true"/>
               <parameter key="label_column"	value="0"/>
@@ -40,7 +40,7 @@
               <parameter key="trim_lines"	value="false"/>
               <parameter key="decimal_point_character"	value="."/>
           </operator>
-          <operator name="Load 1" class="CSVExampleSource">
+          <operator name="Load 1" class="CSVExampleSource" activated="no">
               <parameter key="filename"	value="../preprocessed_data/1PP.csv"/>
               <parameter key="read_attribute_names"	value="true"/>
               <parameter key="label_column"	value="0"/>
@@ -56,7 +56,7 @@
               <parameter key="trim_lines"	value="false"/>
               <parameter key="decimal_point_character"	value="."/>
           </operator>
-          <operator name="ExampleSetMerge" class="ExampleSetMerge">
+          <operator name="ExampleSetMerge" class="ExampleSetMerge" activated="no">
               <parameter key="merge_type"	value="all"/>
               <parameter key="datamanagement"	value="double_array"/>
           </operator>

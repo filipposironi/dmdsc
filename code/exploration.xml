@@ -8,7 +8,7 @@
       <parameter key="random_seed"	value="2001"/>
       <parameter key="encoding"	value="SYSTEM"/>
       <operator name="Load 1" class="CSVExampleSource">
-          <parameter key="filename"	value="../preprocessed_data/1PP.csv"/>
+          <parameter key="filename"	value="../preprocessed_data/TESTDM_PP.csv"/>
           <parameter key="read_attribute_names"	value="true"/>
           <parameter key="label_column"	value="0"/>
           <parameter key="id_column"	value="0"/>
@@ -23,7 +23,7 @@
           <parameter key="trim_lines"	value="false"/>
           <parameter key="decimal_point_character"	value="."/>
       </operator>
-      <operator name="Normalize Attributes" class="AttributeSubsetPreprocessing" expanded="no">
+      <operator name="Normalize Attributes" class="AttributeSubsetPreprocessing" activated="no" expanded="yes">
           <parameter key="condition_class"	value="attribute_name_filter"/>
           <parameter key="attribute_name_regex"	value="Speed|EngineSpeed"/>
           <parameter key="invert_selection"	value="false"/>
@@ -38,7 +38,7 @@
               <parameter key="max"	value="1.0"/>
           </operator>
       </operator>
-      <operator name="Load 3" class="CSVExampleSource">
+      <operator name="Load 3" class="CSVExampleSource" activated="no">
           <parameter key="filename"	value="../preprocessed_data/3PP.csv"/>
           <parameter key="read_attribute_names"	value="true"/>
           <parameter key="label_column"	value="0"/>
@@ -54,7 +54,7 @@
           <parameter key="trim_lines"	value="false"/>
           <parameter key="decimal_point_character"	value="."/>
       </operator>
-      <operator name="Normalize Attributes (2)" class="AttributeSubsetPreprocessing" expanded="yes">
+      <operator name="Normalize Attributes (2)" class="AttributeSubsetPreprocessing" activated="no" expanded="yes">
           <parameter key="condition_class"	value="attribute_name_filter"/>
           <parameter key="attribute_name_regex"	value="Speed|EngineSpeed"/>
           <parameter key="invert_selection"	value="false"/>
@@ -69,7 +69,7 @@
               <parameter key="max"	value="1.0"/>
           </operator>
       </operator>
-      <operator name="Load 5" class="CSVExampleSource">
+      <operator name="Load 5" class="CSVExampleSource" activated="no">
           <parameter key="filename"	value="../preprocessed_data/5PP.csv"/>
           <parameter key="read_attribute_names"	value="true"/>
           <parameter key="label_column"	value="0"/>
@@ -85,7 +85,7 @@
           <parameter key="trim_lines"	value="false"/>
           <parameter key="decimal_point_character"	value="."/>
       </operator>
-      <operator name="Normalize Attributes (3)" class="AttributeSubsetPreprocessing" expanded="yes">
+      <operator name="Normalize Attributes (3)" class="AttributeSubsetPreprocessing" activated="no" expanded="yes">
           <parameter key="condition_class"	value="attribute_name_filter"/>
           <parameter key="attribute_name_regex"	value="Speed|EngineSpeed"/>
           <parameter key="invert_selection"	value="false"/>

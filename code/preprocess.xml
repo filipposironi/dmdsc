@@ -8,7 +8,7 @@
       <parameter key="random_seed"	value="2001"/>
       <parameter key="encoding"	value="SYSTEM"/>
       <operator name="Load Data" class="CSVExampleSource">
-          <parameter key="filename"	value="../preprocessed_data/1.csv"/>
+          <parameter key="filename"	value="../preprocessed_data/TESTDM.csv"/>
           <parameter key="read_attribute_names"	value="true"/>
           <parameter key="label_column"	value="0"/>
           <parameter key="id_column"	value="0"/>
@@ -23,7 +23,7 @@
           <parameter key="trim_lines"	value="false"/>
           <parameter key="decimal_point_character"	value="."/>
       </operator>
-      <operator name="Preprocessing" class="OperatorChain" expanded="no">
+      <operator name="Preprocessing" class="OperatorChain" expanded="yes">
           <operator name="Rename" class="OperatorChain" expanded="no">
               <operator name="Latitude" class="ChangeAttributeName">
                   <parameter key="old_name"	value="GPS-0"/>
@@ -144,7 +144,7 @@
           </operator>
       </operator>
       <operator name="Store Data" class="CSVExampleSetWriter">
-          <parameter key="csv_file"	value="../preprocessed_data/1PP.csv"/>
+          <parameter key="csv_file"	value="../preprocessed_data/TESTDM_PP.csv"/>
           <parameter key="column_separator"	value=";"/>
           <parameter key="write_attribute_names"	value="true"/>
           <parameter key="quote_nominal_values"	value="false"/>

@@ -1,0 +1,1 @@
+This is a project assigned within the Data Mining and Text Mining course at Politecnico di Milano.
